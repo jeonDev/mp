@@ -36,4 +36,8 @@ public class Music extends BaseEntity {
 
     @Column(name = "OPEN_YN")
     private boolean openYn;
+
+    public void changeOpenYn(boolean openYn) {
+        this.openYn = openYn;
+    }
 }

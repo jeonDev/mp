@@ -6,6 +6,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum ServiceError {
+    NO_ENTITY("80000", "No Data"),
     LOGIN_PASSWORD_PATTERN_FAIL("90081", "Password Pattern unMatch"),
     LOGIN_ID_NOT_EXISTS("90091", "No Exists Id"),
     LOGIN_PASSWORD_FAIL("90092", "Login Password unMatch");

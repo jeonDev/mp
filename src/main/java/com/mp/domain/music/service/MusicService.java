@@ -6,7 +6,7 @@ import com.mp.domain.music.vo.MusicVO;
 import java.util.List;
 
 public interface MusicService {
-    Music saveMusic(MusicVO vo);
+    Music addMusic(MusicVO vo);
+    void removeMusic(MusicVO vo);
     MusicVO getMusic(MusicVO vo);
-    List<MusicVO> getMyMusicList();
 }
