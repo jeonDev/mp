@@ -2,6 +2,13 @@ package com.mp.domain.music.service;
 
 import com.mp.common.ex.ServiceError;
 import com.mp.common.ex.ServiceException;
+import com.mp.domain.fileStore.domain.FileStore;
+import com.mp.domain.fileStore.service.FileStoreService;
+import com.mp.domain.fileStore.vo.FileStoreDto;
+import com.mp.domain.fileStore.vo.FileStoreVO;
+import com.mp.domain.member.domain.Member;
+import com.mp.domain.member.service.MemberService;
+import com.mp.domain.member.vo.UserInfo;
 import com.mp.domain.music.domain.Music;
 import com.mp.domain.music.domain.MusicRepository;
 import com.mp.domain.music.vo.MusicDto;
@@ -18,12 +25,44 @@ public class MusicServiceImpl implements MusicService {
 
     private final MusicRepository musicRepository;
 
+    private final FileStoreService fileStoreService;
+    private final MemberService memberService;
+
     @Transactional
     @Override
     public Music addMusic(MusicVO vo) {
+        log.debug("add Music");
+
+        // 1. Member
+        UserInfo userInfo = memberService.getSession();
+        Member member = memberService.getMember(userInfo.getMemberSeq())
+                .orElseThrow(() -> new ServiceException(ServiceError.LOGIN_ID_NOT_EXISTS));
+
+        // 2. File Upload
+        // 2-1. Music
+        FileStoreVO musicFileStoreVO = FileStoreDto.builder()
+                .file(vo.getMusicFile())
+                .build();
+
+        FileStore musicFile = fileStoreService.upload(musicFileStoreVO);
+
+        // 2-2. Image
+        FileStore imageFile = null;
+        if (vo.getImageFile() != null) {
+            FileStoreVO imageFileStoreVO = FileStoreDto.builder()
+                    .file(vo.getMusicFile())
+                    .build();
+
+            imageFile = fileStoreService.upload(imageFileStoreVO);
+        }
+
+        // 3. Save
         Music music = Music.builder()
+                .member(member)
                 .musicName(vo.getMusicName())
                 .musicCategory(vo.getMusicCategory())
+                .musicFileStore(musicFile)
+                .imageFileStore(imageFile)
                 .openYn(vo.isOpenYn())
                 .build();
 

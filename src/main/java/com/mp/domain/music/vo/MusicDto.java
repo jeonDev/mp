@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Builder
@@ -16,4 +17,6 @@ public class MusicDto implements MusicVO {
     private String musicName;
     private MusicCategory musicCategory;
     private boolean openYn;
+    private MultipartFile musicFile;
+    private MultipartFile imageFile;
 }
