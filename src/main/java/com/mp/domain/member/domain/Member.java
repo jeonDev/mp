@@ -20,6 +20,17 @@ public class Member {
     @Column(name = "MEMBER_SEQ", nullable = false)
     private Long memberSeq;
 
+    @Column(name = "ID", nullable = false, length = 30, unique = true)
+    private String id;
+
+    @Column(name = "PASSWORD", nullable = false, length = 100)
+    private String password;
+
     @Column(name = "NAME", length = 100)
     private String name;
+
+    public void update(String password, String name) {
+        this.password = password;
+        this.name = name;
+    }
 }

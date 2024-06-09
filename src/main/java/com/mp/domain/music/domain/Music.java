@@ -1,5 +1,6 @@
 package com.mp.domain.music.domain;
 
+import com.mp.common.type.MusicCategory;
 import com.mp.domain.fileStore.domain.FileStore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -28,4 +29,7 @@ public class Music {
     @JoinColumn(name = "FILE_STORE_SEQ", nullable = false)
     private FileStore fileStore;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "MUSIC_CATEGORY")
+    private MusicCategory musicCategory;
 }
