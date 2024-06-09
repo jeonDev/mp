@@ -1,5 +1,6 @@
 package com.mp.domain.member.domain;
 
+import com.mp.common.domain.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
@@ -13,7 +14,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "MEMBER")
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

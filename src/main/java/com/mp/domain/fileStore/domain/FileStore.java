@@ -1,5 +1,6 @@
 package com.mp.domain.fileStore.domain;
 
+import com.mp.common.domain.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
@@ -13,7 +14,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "FILE_STORE")
-public class FileStore {
+public class FileStore extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

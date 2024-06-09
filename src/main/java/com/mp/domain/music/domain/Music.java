@@ -1,5 +1,6 @@
 package com.mp.domain.music.domain;
 
+import com.mp.common.domain.BaseEntity;
 import com.mp.common.type.MusicCategory;
 import com.mp.domain.fileStore.domain.FileStore;
 import jakarta.persistence.*;
@@ -15,7 +16,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "MUSIC")
-public class Music {
+public class Music extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,4 +33,7 @@ public class Music {
     @Enumerated(EnumType.STRING)
     @Column(name = "MUSIC_CATEGORY")
     private MusicCategory musicCategory;
+
+    @Column(name = "OPEN_YN")
+    private boolean openYn;
 }
