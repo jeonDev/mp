@@ -1,0 +1,9 @@
+/* 여기부터 계정 생성 */
+create database mp default character set UTF8;
+
+CREATE USER mp@'%' IDENTIFIED BY 'mp' ;
+
+grant all privileges on mp.* to 'mp'@'%';
+
+FLUSH PRIVILEGES;
+/* 여기까지 */
