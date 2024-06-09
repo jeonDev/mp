@@ -32,6 +32,6 @@ class MusicServiceTest {
                 .openYn(true)
                 .build();
         Music music = musicService.addMusic(vo);
-        assertEquals(vo.getMusicSeq(), music.getMusicSeq());
+        assertEquals(vo.getMusicName(), music.getMusicName());
     }
 }
