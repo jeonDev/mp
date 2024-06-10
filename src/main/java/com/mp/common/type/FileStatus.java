@@ -17,7 +17,7 @@ public enum FileStatus {
 
     public static boolean isFileExtCheck(FileType fileType, String ext) {
         FileStatus fileStatus = Arrays.stream(values())
-                .filter(val -> val.ext.equals(ext))
+                .filter(val -> val.ext.equals(ext.toLowerCase()))
                 .findFirst()
                 .orElse(null);
         return fileStatus != null && fileType == fileStatus.type;

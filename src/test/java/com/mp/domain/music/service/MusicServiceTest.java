@@ -24,11 +24,11 @@ class MusicServiceTest {
     @Transactional
     @Test
     void 음악_등록() throws IOException {
-        FileInputStream fileInputStream = new FileInputStream("/Users/jjh/project/file/mp/test.JPG");
+        FileInputStream fileInputStream = new FileInputStream("/Users/jjh/project/file/mp/test.MP3");
         MusicVO vo = MusicDto.builder()
                 .musicCategory(MusicCategory.BALLADE)
                 .musicName("발라드")
-                .musicFile(new MockMultipartFile("test", fileInputStream))
+                .musicFile(new MockMultipartFile("test", "test.MP3", "MP3", fileInputStream))
                 .openYn(true)
                 .build();
         Music music = musicService.addMusic(vo);

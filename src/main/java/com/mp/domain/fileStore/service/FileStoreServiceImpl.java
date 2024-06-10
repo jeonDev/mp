@@ -37,7 +37,7 @@ public class FileStoreServiceImpl implements FileStoreService {
             throw new ServiceException(ServiceError.FILE_NO_EXT);
 
         // 2. 파일명 저장
-        String fileName = DateUtils.getNowDate("yyyyMMdd") + "_" + UUID.randomUUID();
+        String fileName = DateUtils.getNowDate("yyyyMMdd") + "_" + UUID.randomUUID() + "." + contentType;
 
         // 3. 파일 업로드
         File newFile = new File(storagePath + fileName);
