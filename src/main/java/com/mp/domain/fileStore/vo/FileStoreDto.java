@@ -1,5 +1,6 @@
 package com.mp.domain.fileStore.vo;
 
+import com.mp.common.type.FileType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,4 +13,5 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 public class FileStoreDto implements FileStoreVO {
     private MultipartFile file;
+    private FileType fileType;
 }

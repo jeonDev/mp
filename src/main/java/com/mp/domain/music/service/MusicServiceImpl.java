@@ -2,6 +2,7 @@ package com.mp.domain.music.service;
 
 import com.mp.common.ex.ServiceError;
 import com.mp.common.ex.ServiceException;
+import com.mp.common.type.FileType;
 import com.mp.domain.fileStore.domain.FileStore;
 import com.mp.domain.fileStore.service.FileStoreService;
 import com.mp.domain.fileStore.vo.FileStoreDto;
@@ -17,6 +18,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.IOException;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -42,18 +45,29 @@ public class MusicServiceImpl implements MusicService {
         // 2-1. Music
         FileStoreVO musicFileStoreVO = FileStoreDto.builder()
                 .file(vo.getMusicFile())
+                .fileType(FileType.MUSIC)
                 .build();
 
-        FileStore musicFile = fileStoreService.upload(musicFileStoreVO);
+        FileStore musicFile = null;
+        try {
+            musicFile = fileStoreService.upload(musicFileStoreVO);
+        } catch (IOException e) {
+            throw new ServiceException(ServiceError.FILE_UPLOAD_FAIL);
+        }
 
         // 2-2. Image
         FileStore imageFile = null;
         if (vo.getImageFile() != null) {
             FileStoreVO imageFileStoreVO = FileStoreDto.builder()
                     .file(vo.getMusicFile())
+                    .fileType(FileType.IMAGE)
                     .build();
 
-            imageFile = fileStoreService.upload(imageFileStoreVO);
+            try {
+                imageFile = fileStoreService.upload(imageFileStoreVO);
+            } catch (IOException e) {
+                throw new ServiceException(ServiceError.FILE_UPLOAD_FAIL);
+            }
         }
 
         // 3. Save
