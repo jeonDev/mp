@@ -24,7 +24,7 @@ public class PlayList extends BaseEntity {
     @Column(name = "PLAY_LIST_SEQ")
     private Long playListSeq;
 
-    @OneToMany
-    @JoinColumn(name = "MUSIC_SEQ")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "PLAYLIST_SEQ")
     private List<Music> music;
 }
