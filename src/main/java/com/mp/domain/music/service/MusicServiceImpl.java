@@ -94,14 +94,8 @@ public class MusicServiceImpl implements MusicService {
 
     @Transactional(readOnly = true)
     @Override
-    public MusicVO getMusic(MusicVO vo) {
-        Music music = musicRepository.findById(vo.getMusicSeq())
+    public Music getMusic(Long musicSeq) {
+        return musicRepository.findById(musicSeq)
                 .orElseThrow(() -> new ServiceException(ServiceError.NO_ENTITY));
-
-        return MusicDto.builder()
-                .musicName(music.getMusicName())
-                .musicCategory(music.getMusicCategory())
-                .openYn(music.isOpenYn())
-                .build();
     }
 }

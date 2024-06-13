@@ -1,11 +1,13 @@
 package com.mp.domain.playlist.service;
 
 import com.mp.domain.music.domain.Music;
+import com.mp.domain.playlist.domain.PlayList;
 
 import java.util.List;
 
 public interface PlayListService {
-    void addPlayList(Music music);
+    PlayList addPlayList(Long musicSeq);
     void removePlayList(Music music);
-    List<Music> getPlayList();
+    List<Music> getMyPlayList();
+    PlayList getPlayList(Long playList);
 }
