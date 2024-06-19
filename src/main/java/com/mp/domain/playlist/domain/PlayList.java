@@ -1,13 +1,12 @@
 package com.mp.domain.playlist.domain;
 
 import com.mp.common.domain.BaseEntity;
+import com.mp.domain.member.domain.Member;
 import com.mp.domain.music.domain.Music;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-
-import java.util.List;
 
 @Entity
 @Getter
@@ -24,7 +23,18 @@ public class PlayList extends BaseEntity {
     @Column(name = "PLAY_LIST_SEQ")
     private Long playListSeq;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "PLAYLIST_SEQ")
-    private List<Music> music;
+    /* TODO: default + 1 되게 하고 싶은데 */
+    @Column(name = "PLAY_LIST_NUMBER")
+    private Long playListNumber;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MEMBER_SEQ", nullable = false)
+    private Member member;
+
+    @Column(name = "PLAY_LIST_NAME", length = 100, nullable = false)
+    private String playListName;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MUSIC_SEQ", nullable = false)
+    private Music music;
 }

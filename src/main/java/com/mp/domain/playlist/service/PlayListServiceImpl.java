@@ -2,10 +2,14 @@ package com.mp.domain.playlist.service;
 
 import com.mp.common.ex.ServiceError;
 import com.mp.common.ex.ServiceException;
+import com.mp.domain.member.domain.Member;
+import com.mp.domain.member.service.MemberService;
+import com.mp.domain.member.vo.UserInfo;
 import com.mp.domain.music.domain.Music;
 import com.mp.domain.music.service.MusicService;
 import com.mp.domain.playlist.domain.PlayList;
 import com.mp.domain.playlist.domain.PlayListRepository;
+import com.mp.domain.playlist.vo.PlayListVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,15 +23,26 @@ import java.util.List;
 public class PlayListServiceImpl implements PlayListService {
 
     private final PlayListRepository playListRepository;
+    private final MemberService memberService;
     private final MusicService musicService;
 
     @Transactional
     @Override
-    public PlayList addPlayList(Long musicSeq) {
-        Music music = musicService.getMusic(musicSeq);
+    public PlayList addPlayList(PlayListVO vo) {
+        // 1. Member
+        UserInfo userInfo = memberService.getSession();
+        Member member = memberService.getMember(userInfo.getMemberSeq())
+                .orElseThrow(() -> new ServiceException(ServiceError.LOGIN_ID_NOT_EXISTS));
 
+        // 2. Music
+        Music music = musicService.getMusic(vo.getMusicSeq());
+
+        // 3. PlayList
         PlayList playList = PlayList.builder()
-                .music(List.of(music))
+                .music(music)
+                .member(member)
+                .playListNumber(vo.getPlayListNumber() != null ? vo.getPlayListNumber() : null)
+                .playListName(vo.getPlayListName())
                 .build();
 
         return playListRepository.save(playList);
