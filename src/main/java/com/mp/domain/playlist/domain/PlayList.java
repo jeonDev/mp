@@ -24,7 +24,7 @@ public class PlayList extends BaseEntity {
     private Long playListSeq;
 
     /* TODO: default + 1 되게 하고 싶은데 */
-    @Column(name = "PLAY_LIST_NUMBER")
+    @Column(name = "PLAY_LIST_NUMBER", nullable = false)
     private Long playListNumber;
 
     @ManyToOne(fetch = FetchType.LAZY)
